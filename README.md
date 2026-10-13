@@ -61,8 +61,4 @@ Synthetic data is trivially separable and only verifies that the code runs. Repo
 
 All simulation and agent actions stay inside an isolated lab or public datasets. The agent only recommends or triggers pre-approved, reversible, sandboxed actions with human confirmation. No real malware on personal or production systems. See synopsis section 4.10.
 
-## Team
-
-Shivansh Chauhan (230211337), Sofia Ali (23022564), Sahil Yadav (23021810), Krish Yadav (230111120).
-
 See `docs/ROADMAP.md` for the 12-week plan and task split.
