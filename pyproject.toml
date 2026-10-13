@@ -1,0 +1,29 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "dfir-cti-framework"
+version = "0.1.0"
+description = "Agentic AI-Driven Hybrid Digital Forensics & Cyber Threat Intelligence Framework"
+requires-python = ">=3.10"
+dependencies = [
+    "numpy",
+    "pandas",
+    "pyarrow",
+    "scikit-learn",
+    "xgboost",
+    "torch",
+    "pyyaml",
+    "joblib",
+    "requests",
+    "matplotlib",
+]
+
+[project.optional-dependencies]
+api = ["fastapi", "uvicorn"]
+agent = ["langgraph", "langchain"]
+dev = ["pytest"]
+
+[tool.setuptools.packages.find]
+where = ["src"]

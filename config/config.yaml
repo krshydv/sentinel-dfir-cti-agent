@@ -1,0 +1,67 @@
+paths:
+  raw: data/raw
+  interim: data/interim
+  processed: data/processed
+  models: models
+  reports: reports
+
+dataset:
+  name: UWF-ZeekData24
+  source_page: https://datasets.uwf.edu/
+  download_urls: []
+  file_glob: "*.csv"
+  label_binary_candidates: [label_binary, Label_Binary, label]
+  label_tactic_candidates: [label_tactic, Label_Tactic, mitre_tactic]
+  label_technique_candidates: [label_technique, Label_Technique, mitre_technique]
+  timestamp_candidates: [ts, timestamp, datetime]
+  src_ip_candidates: [src_ip_zeek, id.orig_h, src_ip]
+  dst_ip_candidates: [dest_ip_zeek, id.resp_h, dst_ip]
+  src_port_candidates: [src_port_zeek, id.orig_p, src_port]
+  dst_port_candidates: [dest_port_zeek, id.resp_p, dst_port]
+  max_rows: null
+
+features:
+  window_seconds: 60
+  numeric_candidates:
+    - duration
+    - orig_bytes
+    - resp_bytes
+    - missed_bytes
+    - orig_pkts
+    - orig_ip_bytes
+    - resp_pkts
+    - resp_ip_bytes
+  categorical_candidates:
+    - proto
+    - service
+    - conn_state
+
+models:
+  test_size: 0.3
+  random_state: 42
+  isolation_forest:
+    n_estimators: 200
+    contamination: auto
+  xgboost:
+    n_estimators: 300
+    max_depth: 6
+    learning_rate: 0.1
+  autoencoder:
+    hidden_dims: [64, 32, 16]
+    epochs: 30
+    batch_size: 256
+    learning_rate: 0.001
+
+fusion:
+  strategy: weighted
+  weights:
+    isolation_forest: 0.2
+    xgboost: 0.5
+    autoencoder: 0.3
+  threshold: 0.5
+
+rules:
+  port_scan_unique_ports: 20
+  brute_force_attempts: 30
+  high_volume_bytes: 100000000
+  window_seconds: 60

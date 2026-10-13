@@ -1,0 +1,11 @@
+numpy
+pandas
+pyarrow
+scikit-learn
+xgboost
+torch
+pyyaml
+joblib
+requests
+matplotlib
+pytest
