@@ -1,7 +1,9 @@
 # Agentic AI-Driven Hybrid Digital Forensics & Cyber Threat Intelligence Framework
 
-B.Tech CSE major project, Graphic Era Deemed to be University, Dehradun.
-Supervisor: Mr. Darshan Singh. Full specification: `docs/Major_Project_Synopsis.pdf`.
+Agentic AI framework for digital forensics and cyber threat intelligence.
+Ingests and cleans forensic/security data for analysis.
+Uses hybrid detection models, rules, and correlation to identify threats.
+Includes testing, configuration, dataset tools, documentation, and a future dashboard.
 
 ## Architecture (per synopsis, Table 4.1)
 
