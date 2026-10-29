@@ -7,17 +7,17 @@ Includes testing, configuration, dataset tools, documentation, and a future dash
 
 ## Architecture (per synopsis, Table 4.1)
 
-| Layer | Package | Status |
+| Layer | Package |
 |---|---|---|
-| Data ingestion | `src/dfir_cti/ingestion` | done |
-| Preprocessing and feature engineering | `src/dfir_cti/preprocessing` | done (baseline) |
-| Hybrid detection: Isolation Forest, XGBoost, deep autoencoder, score fusion | `src/dfir_cti/detection` | done (baseline) |
-| Rule engine | `src/dfir_cti/detection/rules.py` | done (baseline) |
-| Correlation and case management | `src/dfir_cti/correlation` | week 7 |
-| Digital forensics artefacts | `src/dfir_cti/forensics` | week 7 |
-| Threat intelligence, IOC, MITRE ATT&CK | `src/dfir_cti/threat_intel` | week 8 |
+| Data ingestion | `src/dfir_cti/ingestion` |
+| Preprocessing and feature engineering | `src/dfir_cti/preprocessing` |
+| Hybrid detection: Isolation Forest, XGBoost, deep autoencoder, score fusion | `src/dfir_cti/detection` |
+| Rule engine | `src/dfir_cti/detection/rules.py` |
+| Correlation and case management | `src/dfir_cti/correlation` |
+| Digital forensics artefacts | `src/dfir_cti/forensics` | 
+| Threat intelligence, IOC, MITRE ATT&CK | `src/dfir_cti/threat_intel` |
 | Single agentic AI layer | `src/dfir_cti/agent` | weeks 9-10 |
-| Dashboard and reporting | `src/dfir_cti/api`, `dashboard/` | week 11 |
+| Dashboard and reporting | `src/dfir_cti/api`, `dashboard/` | 
 
 Primary dataset: UWF-ZeekData24 (MITRE ATT&CK labelled Zeek network flows).
 Fallback: self-generated lab dataset (see `lab/README.md`).
