@@ -48,6 +48,4 @@ Synthetic data is trivially separable and only verifies that the code runs. Repo
 
 ## Safety boundaries
 
-All simulation and agent actions stay inside an isolated lab or public datasets. The agent only recommends or triggers pre-approved, reversible, sandboxed actions with human confirmation. No real malware on personal or production systems. See synopsis section 4.10.
-
-See `docs/ROADMAP.md` for the 12-week plan and task split.
+All simulation and agent actions stay inside an isolated lab or public datasets. The agent only recommends or triggers pre-approved, reversible, sandboxed actions with human confirmation. No real malware on personal or production systems. 
