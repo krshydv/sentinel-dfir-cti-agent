@@ -43,6 +43,8 @@ if IN_COLAB:
 elif os.path.basename(os.getcwd()) == "notebooks":
     os.chdir("..")
 
+sys.path.insert(0, os.path.abspath("src"))
+
 os.environ["KMP_DUPLICATE_LIB_OK"] = "TRUE"
 os.environ["OMP_NUM_THREADS"] = "1"
 print(os.getcwd())
@@ -212,7 +214,60 @@ plt.show()
 """
 )
 
-md("## 9. Save figures")
+md(
+    """
+## 9. Incident correlation and ATT&CK mapping
+
+Flows flagged by the rules and the fused score are grouped into incidents per source host. Each incident gets a forensic timeline, extracted indicators of compromise (IOCs) and a MITRE ATT&CK technique, and the mapping is checked against the dataset's own tactic labels.
+"""
+)
+
+code(
+    """
+from dfir_cti.investigation import investigate
+from dfir_cti.threat_intel.attack_mapping import mapping_accuracy
+
+frame = artifacts["test_frame"]
+flagged = artifacts["predictions"]["rules_plus_fused"]
+
+incidents, assignment, reports = investigate(frame, flagged, artifacts["scores"]["fused"], cfg)
+
+accuracy = mapping_accuracy(incidents)
+print("Incidents:", accuracy["incidents"])
+print("Attack incidents:", accuracy["attack_incidents"], " False-alarm incidents:", accuracy["false_alarm_incidents"])
+print("Tactic accuracy:", accuracy["tactic_accuracy"])
+
+incidents[["incident_id", "src_ip", "flows", "unique_dsts", "unique_ports", "technique_id", "tactic_pred", "true_tactic"]].head(15)
+"""
+)
+
+code(
+    """
+from dfir_cti.visualization import plot_attack_mapping, plot_incident_overview
+
+plot_incident_overview(incidents)
+plt.show()
+
+if not accuracy["confusion"].empty:
+    plot_attack_mapping(accuracy["confusion"])
+    plt.show()
+"""
+)
+
+code(
+    """
+import json
+
+example = reports[0]
+print(example["incident_id"], example["src_ip"], example["technique_id"], example["technique"])
+print("Evidence:", example["evidence"])
+print("Timeline:", {k: str(v) for k, v in example["timeline"].items()})
+
+pd.DataFrame(example["iocs"])[["type", "value", "role", "scope", "flows", "context"]]
+"""
+)
+
+md("## 10. Save figures")
 
 code(
     """

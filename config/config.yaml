@@ -4,6 +4,7 @@ paths:
   processed: data/processed
   models: models
   reports: reports
+  intel: data/intel
 
 dataset:
   name: UWF-ZeekData24
@@ -68,3 +69,17 @@ rules:
   host_sweep_unique_dsts: 3
   high_volume_bytes: 100000000
   window_seconds: 60
+
+correlation:
+  gap_seconds: 86400
+  min_flows: 3
+
+attack_mapping:
+  scan_unique_dsts: 3
+  scan_unique_ports: 10
+  brute_port_share: 0.5
+  brute_flows_per_target: 2
+  exfil_bytes_per_flow: 100000
+
+threat_intel:
+  blocklist_file: blocklist.txt

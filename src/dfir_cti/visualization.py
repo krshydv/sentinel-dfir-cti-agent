@@ -2,6 +2,7 @@ from pathlib import Path
 
 import matplotlib.pyplot as plt
 import numpy as np
+from matplotlib.ticker import FuncFormatter
 from sklearn.metrics import (
     auc,
     average_precision_score,
@@ -157,6 +158,53 @@ def plot_feature_importance(importance, top_n=10, path=None):
     ax.set_xlabel("XGBoost importance")
     ax.set_title(f"Top {len(items)} features")
     ax.grid(axis="x", alpha=0.3)
+    return _finish(fig, path)
+
+
+TACTIC_COLORS = {
+    "Reconnaissance": "#1f77b4",
+    "Credential Access": "#d62728",
+    "Exfiltration": "#ff7f0e",
+    "Unmapped": "#7f7f7f",
+}
+
+
+def plot_incident_overview(incidents, top_n=15, path=None):
+    ranked = incidents.sort_values("flows", ascending=False).head(top_n).iloc[::-1]
+    labels = [f"{row.incident_id}  {row.src_ip}" for row in ranked.itertuples()]
+    colors = [TACTIC_COLORS.get(t, "#7f7f7f") for t in ranked["tactic_pred"]]
+
+    fig, ax = plt.subplots(figsize=(9, 0.45 * len(ranked) + 2))
+    ax.barh(labels, ranked["flows"], color=colors)
+    ax.set_xscale("log")
+    ax.xaxis.set_major_formatter(FuncFormatter(lambda v, _: f"{v:,.0f}"))
+    ax.xaxis.set_minor_formatter(FuncFormatter(lambda v, _: f"{v:,.0f}" if v in (2, 5, 20, 50, 200, 500, 2000, 5000) else ""))
+    ax.set_xlabel("Flagged flows (log scale)")
+    ax.set_title("Correlated incidents by predicted ATT&CK tactic")
+
+    handles = [plt.Rectangle((0, 0), 1, 1, color=c) for c in TACTIC_COLORS.values()]
+    ax.legend(handles, TACTIC_COLORS.keys(), loc="lower right", frameon=False)
+    ax.grid(axis="x", alpha=0.3)
+    return _finish(fig, path)
+
+
+def plot_attack_mapping(confusion, path=None):
+    rows = list(confusion.index)
+    cols = sorted(set(confusion.columns) | set(rows))
+    table = confusion.reindex(index=rows, columns=cols, fill_value=0)
+    share = table.values / np.maximum(table.values.sum(axis=1, keepdims=True), 1)
+
+    fig, ax = plt.subplots(figsize=(1.6 * len(cols) + 3, 1.2 * len(rows) + 2.5))
+    ax.imshow(share, cmap="Blues", vmin=0, vmax=1)
+    ax.set_xticks(range(len(cols)), cols, rotation=20)
+    ax.set_yticks(range(len(rows)), rows)
+    ax.set_xlabel("Predicted tactic")
+    ax.set_ylabel("Actual tactic (dataset label)")
+    ax.set_title("ATT&CK tactic mapping of incidents")
+    for i in range(len(rows)):
+        for j in range(len(cols)):
+            colour = "white" if share[i, j] > 0.5 else "black"
+            ax.text(j, i, f"{table.values[i, j]:,}", ha="center", va="center", color=colour, fontsize=13)
     return _finish(fig, path)
 
 

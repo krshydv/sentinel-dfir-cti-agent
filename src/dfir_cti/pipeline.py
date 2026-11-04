@@ -145,6 +145,7 @@ def evaluate(df, y, y_test, test_idx, test_scores, fusion, xgb, feature_names, c
         "scores": scores_out,
         "predictions": predictions,
         "importance": {name: float(value) for name, value in importance.items()},
+        "test_frame": df.iloc[test_idx].reset_index(drop=True),
     }
 
     return results, artifacts

@@ -75,7 +75,7 @@ def generate(n, attack_rate, seed):
                 kinds == "recon", "Reconnaissance", np.where(kinds == "credential_access", "Credential Access", "Exfiltration")
             ),
             "label_technique": np.where(
-                kinds == "recon", "T1595", np.where(kinds == "credential_access", "T1110", "T1041")
+                kinds == "recon", "T1595", np.where(kinds == "credential_access", "T1110", "T1048")
             ),
         }
     )
