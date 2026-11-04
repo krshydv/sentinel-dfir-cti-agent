@@ -211,9 +211,12 @@ def main():
     parser.add_argument("--config", default=None)
     parser.add_argument("--max-rows", type=int, default=None)
     parser.add_argument("--strategy", choices=["weighted", "meta"], default=None)
+    parser.add_argument("--exclude", nargs="*", default=None)
     args = parser.parse_args()
 
     cfg = load_config(args.config)
+    if args.exclude is not None:
+        cfg["features"]["exclude"] = args.exclude
     results = run(cfg, args.max_rows, args.strategy)
     print(json.dumps(results, indent=2))
 

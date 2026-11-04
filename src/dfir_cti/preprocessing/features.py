@@ -19,7 +19,8 @@ def flow_features(df, cfg):
         X["is_well_known_port"] = (port < 1024).astype(float)
     if "orig_bytes" in X.columns and "resp_bytes" in X.columns:
         X["byte_ratio"] = (X["orig_bytes"] + 1) / (X["resp_bytes"] + 1)
-    return X
+    drop = [c for c in X.columns if c in set(f.get("exclude", []))]
+    return X.drop(columns=drop)
 
 
 def window_features(df, cfg):
