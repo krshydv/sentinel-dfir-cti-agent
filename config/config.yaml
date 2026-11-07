@@ -83,3 +83,11 @@ attack_mapping:
 
 threat_intel:
   blocklist_file: blocklist.txt
+
+agent:
+  model: claude-sonnet-5-5
+  lab_networks:
+    - 10.0.0.0/8
+    - 192.168.56.0/24
+  max_steps: 12
+  top_incidents: 5

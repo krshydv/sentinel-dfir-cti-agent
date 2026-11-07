@@ -7,7 +7,7 @@
 | 5-6 | Feature engineering, Isolation Forest, XGBoost, autoencoder, score fusion, baseline evaluation | baseline implemented; tune on real data pending |
 | 7 | Rule engine, event correlation, forensic artefact integration | rule engine tuned on real data; incident correlation and forensic timelines done |
 | 8 | IOC extraction, threat-intel enrichment, MITRE ATT&CK mapping | IOC extraction, offline enrichment (local blocklist) and ATT&CK mapping done; external threat-intel feeds pending |
-| 9-10 | Agentic AI layer: orchestrator, tools, planning and report prompts, sandboxed mitigation | pending |
+| 9-10 | Agentic AI layer: orchestrator, tools, planning and report prompts, sandboxed mitigation | single agent built: adaptive tool planner, ATT&CK playbooks, incident reports, guardrailed mitigation proposals, optional LLM summary; live LLM run and lab actions pending |
 | 11 | Dashboard integration, end-to-end testing | pending |
 | 12 | Evaluation, analysis, paper draft, documentation, submission | pending |
 

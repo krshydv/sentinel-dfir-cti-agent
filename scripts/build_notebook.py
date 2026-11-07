@@ -267,7 +267,55 @@ pd.DataFrame(example["iocs"])[["type", "value", "role", "scope", "flows", "conte
 """
 )
 
-md("## 10. Save figures")
+md(
+    """
+## 10. Agentic investigation
+
+A single agent works through each incident: it chooses its next tool from what it has already found (summary, timeline, IOCs, blocklist check, ATT&CK context, severity), then writes the report and proposes mitigation. Actions are limited to a pre-approved list, only inside the isolated lab, and only with human confirmation.
+"""
+)
+
+code(
+    """
+from IPython.display import Markdown, display
+
+from dfir_cti.agent.agent import InvestigationAgent
+
+agent = InvestigationAgent(cfg)
+results = [agent.investigate(r) for r in reports]
+
+rank = {"critical": 3, "high": 2, "medium": 1, "low": 0}
+results.sort(key=lambda r: (rank[r["severity"]["level"]], r["severity"]["points"]), reverse=True)
+
+pd.DataFrame(
+    [
+        {"incident": r["incident_id"], "severity": r["severity"]["level"], "technique": r["technique_id"]}
+        for r in results
+    ]
+).head(10)
+"""
+)
+
+code(
+    """
+display(Markdown(results[0]["report"]))
+"""
+)
+
+code(
+    """
+action = next(p for p in results[0]["proposals"] if p["kind"] == "action")
+print("Proposed:", action["action"], "on", action["target"], "-", action["status"])
+
+try:
+    record = agent.execute(action, human_confirmed=True)
+    print("Executed (simulated):", record["action"], "on", record["target"])
+except Exception as exc:
+    print("Guardrail:", exc)
+"""
+)
+
+md("## 11. Save figures")
 
 code(
     """
