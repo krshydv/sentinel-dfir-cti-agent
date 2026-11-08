@@ -98,7 +98,7 @@ class InvestigationAgent:
             "report": report,
         }
 
-    def execute(self, proposal, human_confirmed, audit_path=None):
+    def execute(self, proposal, human_confirmed, audit_path=None, store=None, incident_id=None):
         authorize(proposal["action"], proposal["target_in_lab"], human_confirmed)
         record = {
             "time": datetime.now(timezone.utc).isoformat(),
@@ -112,4 +112,6 @@ class InvestigationAgent:
             audit_path.parent.mkdir(parents=True, exist_ok=True)
             with open(audit_path, "a", encoding="utf-8") as f:
                 f.write(json.dumps(record) + "\n")
+        if store is not None:
+            store.log_action(record, incident_id)
         return record

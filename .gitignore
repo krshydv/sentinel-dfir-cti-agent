@@ -20,3 +20,5 @@ reports/*
 *.pt
 *.joblib
 .DS_Store
+data/lab/
+reports/lab/

@@ -5,6 +5,7 @@ paths:
   models: models
   reports: reports
   intel: data/intel
+  database: data/processed/dfir.db
 
 dataset:
   name: UWF-ZeekData24

@@ -3,12 +3,12 @@
 | Week | Milestone | State |
 |---|---|---|
 | 1-2 | Literature review, architecture, UWF-ZeekData24 acquisition and exploration, isolated lab setup | repo scaffold and download/explore scripts done; dataset download and lab VM setup pending |
-| 3-4 | Preprocessing, incident simulation, log parsing, database design | cleaning and flow features done; simulation, parsers, DB pending |
+| 3-4 | Preprocessing, incident simulation, log parsing, database design | cleaning and flow features, Zeek conn.log parser (TSV, JSON, gzip), lab attack simulator and SQLite storage done; live lab VM capture pending |
 | 5-6 | Feature engineering, Isolation Forest, XGBoost, autoencoder, score fusion, baseline evaluation | baseline implemented; tune on real data pending |
 | 7 | Rule engine, event correlation, forensic artefact integration | rule engine tuned on real data; incident correlation and forensic timelines done |
 | 8 | IOC extraction, threat-intel enrichment, MITRE ATT&CK mapping | IOC extraction, offline enrichment (local blocklist) and ATT&CK mapping done; external threat-intel feeds pending |
 | 9-10 | Agentic AI layer: orchestrator, tools, planning and report prompts, sandboxed mitigation | single agent built: adaptive tool planner, ATT&CK playbooks, incident reports, guardrailed mitigation proposals, optional LLM summary; live LLM run and lab actions pending |
-| 11 | Dashboard integration, end-to-end testing | pending |
+| 11 | Dashboard integration, end-to-end testing | end-to-end lab test (simulate, parse, detect, correlate, map, investigate, store) done; dashboard and API pending |
 | 12 | Evaluation, analysis, paper draft, documentation, submission | pending |
 
 ## Immediate next steps

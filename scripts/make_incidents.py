@@ -11,6 +11,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from dfir_cti.config import load_config, resolve_path
 from dfir_cti.investigation import investigate, save_reports
 from dfir_cti.pipeline import run_detailed
+from dfir_cti.storage import open_store
 from dfir_cti.threat_intel.attack_mapping import mapping_accuracy
 from dfir_cti.visualization import plot_attack_mapping, plot_incident_overview
 
@@ -41,6 +42,9 @@ def main():
 
     reports_dir = resolve_path(cfg, "reports")
     save_reports(reports, reports_dir / "incidents.json")
+    with open_store(cfg) as store:
+        store.save_incidents(reports)
+        print("Saved to database:", store.path)
     incidents.drop(columns=["evidence"]).to_csv(reports_dir / "incidents.csv", index=False)
 
     accuracy = mapping_accuracy(incidents)

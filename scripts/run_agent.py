@@ -8,6 +8,7 @@ sys.path.insert(0, str(Path(__file__).resolve().parents[1] / "src"))
 from dfir_cti.agent.agent import InvestigationAgent
 from dfir_cti.agent.narrators import AnthropicNarrator, TemplateNarrator
 from dfir_cti.config import load_config, resolve_path
+from dfir_cti.storage import open_store
 
 LEVELS = {"critical": 3, "high": 2, "medium": 1, "low": 0}
 
@@ -35,6 +36,10 @@ def main():
 
     results = [agent.investigate(incident) for incident in incidents]
     results.sort(key=lambda r: (LEVELS[r["severity"]["level"]], r["severity"]["points"]), reverse=True)
+
+    with open_store(cfg) as store:
+        store.save_incidents(incidents)
+        store.save_agent_results(results)
 
     top = args.top or cfg["agent"]["top_incidents"]
     out_dir = reports_dir / "agent"
