@@ -21,7 +21,7 @@ dependencies = [
 ]
 
 [project.optional-dependencies]
-api = ["fastapi", "uvicorn"]
+api = ["fastapi", "uvicorn", "httpx"]
 agent = ["langgraph", "langchain"]
 dev = ["pytest"]
 
