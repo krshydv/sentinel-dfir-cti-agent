@@ -1,6 +1,6 @@
 from fastapi import FastAPI, HTTPException, Query
 from fastapi.middleware.cors import CORSMiddleware
-from fastapi.responses import PlainTextResponse
+from fastapi.responses import PlainTextResponse, RedirectResponse
 from pydantic import BaseModel
 
 from dfir_cti.agent.agent import InvestigationAgent
@@ -29,6 +29,10 @@ def create_app(cfg=None, db_path=None):
 
     def store():
         return open_store(cfg, db_path)
+
+    @app.get("/", include_in_schema=False)
+    def root():
+        return RedirectResponse("/docs")
 
     @app.get("/health")
     def health():

@@ -9,7 +9,7 @@
 | 8 | IOC extraction, threat-intel enrichment, MITRE ATT&CK mapping | IOC extraction, offline enrichment (local blocklist) and ATT&CK mapping done; external threat-intel feeds pending |
 | 9-10 | Agentic AI layer: orchestrator, tools, planning and report prompts, sandboxed mitigation | single agent built: adaptive tool planner, ATT&CK playbooks, incident reports, guardrailed mitigation proposals, optional LLM summary; live LLM run and lab actions pending |
 | 11 | Dashboard integration, end-to-end testing | end-to-end lab test (simulate, parse, detect, correlate, map, investigate, store) done; REST API (FastAPI over SQLite, guarded action endpoint) done; dashboard pending |
-| 12 | Evaluation, analysis, paper draft, documentation, submission | pending |
+| 12 | Evaluation, analysis, paper draft, documentation, submission | architecture and usage docs and results-table generator done; final real-data run, paper draft and demo pending |
 
 ## Immediate next steps
 
